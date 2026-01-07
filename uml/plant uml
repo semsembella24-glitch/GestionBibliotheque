@@ -1,0 +1,70 @@
+@startuml
+
+' Diagramme UML pour la gestion d'une bibliothèque
+
+
+' Classe Livre
+class Livre {
+    - _titre : str
+    - _auteur : str
+    - _disponible : bool
+    + __init__(titre:str, auteur:str)
+    + titre() : str
+    + auteur() : str
+    + disponible() : bool
+    + emprunter() : bool
+    + retourner()
+    + __str__() : str
+}
+
+' Classe Utilisateur
+class Utilisateur {
+    - _nom : str
+    - _livres_empruntes : List<Livre>
+    + __init__(nom:str)
+    + nom() : str
+    + livres_empruntes() : List<Livre>
+    + emprunter_livre(livre:Livre) : bool
+    + retourner_livre(livre:Livre) : bool
+}
+
+' Classe Emprunt (Loan)
+class Emprunt {
+    - utilisateur : Utilisateur
+    - livre : Livre
+    - date_emprunt : datetime
+    - actif : bool
+    + __init__(utilisateur:Utilisateur, livre:Livre)
+    + clore_emprunt()
+}
+
+' Classe Bibliothèque (Library)
+class Bibliotheque {
+    - livres : List<Livre>
+    - utilisateurs : List<Utilisateur>
+    - emprunts_actifs : List<Emprunt>
+    + __init__()
+    + ajouter_livre(livre:Livre)
+    + supprimer_livre(livre:Livre)
+    + inscrire_utilisateur(utilisateur:Utilisateur)
+    + emprunter_livre(utilisateur:Utilisateur, livre:Livre) : Emprunt
+    + retourner_livre(emprunt:Emprunt)
+    + afficher_etat()
+}
+
+
+' Relations
+
+' Un Emprunt relie exactement un Livre et un Utilisateur
+Livre "1" <-- "1" Emprunt
+Utilisateur "1" <-- "1" Emprunt
+
+' Bibliothèque contient plusieurs Livres, Utilisateurs et Emprunts
+Bibliotheque "1" o-- "*" Livre
+Bibliotheque "1" o-- "*" Utilisateur
+Bibliotheque "1" o-- "*" Emprunt
+
+' Optionnel: Utilisateur peut avoir plusieurs livres empruntés
+Utilisateur "1" o-- "*" Livre : emprunts
+
+@enduml
