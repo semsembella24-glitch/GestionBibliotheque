@@ -31,5 +31,7 @@ library-management/
  library_diagram.puml  
  Justification  du  diagramme  de  classes 
  uml.PNG
+
  *README.md
+ 
  *git_commands.txt
