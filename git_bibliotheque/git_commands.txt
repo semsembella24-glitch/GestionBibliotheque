@@ -8,17 +8,17 @@ touch src/utilisateur.py
 touch src/emprunt.py
 touch src/bibliotheque.py
 touch README.md
-touch uml/.plant uml
-touch uml/Justification  du  diagramme  de  classes
+touch uml/.plant_uml
+touch "uml/Justification du diagramme de classes"
 git init
 git config --global user.name "semsembella24"
-git config --global user.email "semsembella24@gmail.com
+git config --global user.email "semsembella24@gmail.com"
 git status
 git add .
 git commit -m "Initial commit: add project structure"
 git status
 git remote add origin https://github.com/semsembella24-glitch/GestionBibliotheque.git
-git remote -v  
+git remote -v
 git branch -M main
 git push -u origin main
 git status
@@ -27,3 +27,6 @@ pwd
 ls
 touch git_commands.txt
 git add git_commands.txt
+git commit -m "Add git_commands.txt"
+git push
+
