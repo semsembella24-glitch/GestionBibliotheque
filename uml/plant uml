@@ -58,7 +58,6 @@ class Bibliotheque {
 ' Un Emprunt relie exactement un Livre et un Utilisateur
 Livre "1" <-- "1" Emprunt
 Utilisateur "1" <-- "1" Emprunt
-
 ' Bibliothèque contient plusieurs Livres, Utilisateurs et Emprunts
 Bibliotheque "1" o-- "*" Livre
 Bibliotheque "1" o-- "*" Utilisateur
