@@ -1,0 +1,36 @@
+6. Justification du diagramme de classes
+1. Rôle de chaque classe
+
+livre(book)
+La classe livre représente les ressources consultables de la bibliothèque numérique.
+Elle regroupe les caractéristiques principales d’un livre (titre, auteur, état de disponibilité) et permet d’identifier les ouvrages pouvant être empruntés.
+
+utilisateur(user)
+La classe utilisateur modélise les utilisateurs (adhérents) de la bibliothèque.
+Elle permet de gérer l’inscription des utilisateurs et leurs interactions avec le système, notamment les opérations d’emprunt de livres.
+
+emprunt(loan)
+La classe emprunt représente la relation métier entre un utilisateur et un livre.
+Elle contient les informations relatives à une opération d’emprunt, telles que la date d’emprunt et l’état de l’emprunt (actif ou clôturé).
+La création de cette classe permet de séparer la logique d’emprunt des classes livre et utilisateur, conformément au principe de responsabilité unique.
+
+bibiotheque(library)
+La classe bibiotheque est la classe centrale du système.
+Elle orchestre l’ensemble des règles métier en assurant la gestion des livres, l’inscription des utilisateurs, le suivi des emprunts et le retour des livres, ainsi que l’affichage de l’état global du système.
+
+2. Justification des relations entre les classes
+
+La relation entre emprunt et livre est une relation de cardinalité (1..1), car chaque emprunt concerne un seul livre.
+
+La relation entre emprunt et utilisateur est également de cardinalité (1..1), puisque chaque emprunt est effectué par un seul utilisateur.
+
+La relation entre bibiotheque et les classes livre, utilisateur et emprunt est une relation d’agrégation, car la bibliothèque contient plusieurs livres, utilisateurs et emprunts, tout en conservant l’indépendance de ces entités.
+
+La relation optionnelle entre utilisateur et livre indique qu’un utilisateur peut emprunter plusieurs livres au cours du temps, cette relation étant concrètement gérée par la classe emprunt.
+
+- Cohérence entre la conception UML et l’implémentation
+Le diagramme de classes a été conçu de manière à être strictement cohérent avec l’implémentation en Python.
+Chaque classe UML correspond à une classe Python définie dans un fichier distinct, et les relations entre les classes sont fidèlement représentées dans le code à travers les attributs et les objets manipulés.
+Cette cohérence garantit une meilleure lisibilité, maintenabilité et évolutivité du système.
+Ce diagramme de classes permet une modélisation claire et structurée du système de bibliothèque numérique.
+Il respecte les principes de la programmation orientée objet, assure une séparation efficace des responsabilités et facilite l’évolution future du système.

@@ -30,3 +30,4 @@ library-management/
  *uml/                      
  library_diagram.puml   
  *README.md
+ *git_commands.txt
