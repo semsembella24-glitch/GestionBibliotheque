@@ -8,7 +8,8 @@ touch src/utilisateur.py
 touch src/emprunt.py
 touch src/bibliotheque.py
 touch README.md
-touch uml/.gitkeep
+touch uml/.plant uml
+touch uml/Justification  du  diagramme  de  classes
 git init
 git config --global user.name "semsembella24"
 git config --global user.email "semsembella24@gmail.com
