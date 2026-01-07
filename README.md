@@ -28,6 +28,8 @@ library-management/
  main.py                
 
  *uml/                      
- library_diagram.puml   
+ library_diagram.puml  
+ Justification  du  diagramme  de  classes 
+ uml.PNG
  *README.md
  *git_commands.txt
