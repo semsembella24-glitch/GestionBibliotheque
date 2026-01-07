@@ -1,9 +1,6 @@
 # src/utilisateur.py
-
-from livre import Livre
-
 class Utilisateur:
-    def __init__(self, nom: str):
+    def __init__(self, nom):
         self._nom = nom
         self._livres_empruntes = []
 
@@ -13,15 +10,15 @@ class Utilisateur:
 
     @property
     def livres_empruntes(self):
-        return self._livres_empruntes
+        return self._livres_empruntes.copy()
 
-    def emprunter_livre(self, livre: Livre):
+    def emprunter_livre(self, livre):
         if livre.emprunter():
             self._livres_empruntes.append(livre)
             return True
         return False
 
-    def retourner_livre(self, livre: Livre):
+    def retourner_livre(self, livre):
         if livre in self._livres_empruntes:
             livre.retourner()
             self._livres_empruntes.remove(livre)

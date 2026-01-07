@@ -1,10 +1,7 @@
 from datetime import datetime
 
-# -------------------------------
-# Classe Livre
-# -------------------------------
 class Livre:
-    def __init__(self, titre: str, auteur: str):
+    def __init__(self, titre, auteur):
         self._titre = titre
         self._auteur = auteur
         self._disponible = True
@@ -34,12 +31,8 @@ class Livre:
         etat = "Disponible" if self._disponible else "Emprunté"
         return f"{self._titre} par {self._auteur} - {etat}"
 
-
-# -------------------------------
-# Classe Utilisateur
-# -------------------------------
 class Utilisateur:
-    def __init__(self, nom: str):
+    def __init__(self, nom):
         self._nom = nom
         self._livres_empruntes = []
 
@@ -49,7 +42,7 @@ class Utilisateur:
 
     @property
     def livres_empruntes(self):
-        return self._livres_empruntes
+        return self._livres_empruntes.copy()
 
     def emprunter_livre(self, livre):
         if livre.emprunter():
@@ -64,68 +57,81 @@ class Utilisateur:
             return True
         return False
 
-
-# -------------------------------
-# Classe Emprunt
-# -------------------------------
 class Emprunt:
     def __init__(self, utilisateur, livre):
-        self.utilisateur = utilisateur
-        self.livre = livre
-        self.date_emprunt = datetime.now()
-        self.actif = True
+        self._utilisateur = utilisateur
+        self._livre = livre
+        self._date = datetime.now()
+        self._actif = True
 
-    def clore_emprunt(self):
-        self.actif = False
-        self.livre.retourner()
+    @property
+    def utilisateur(self):
+        return self._utilisateur
 
+    @property
+    def livre(self):
+        return self._livre
 
-# -------------------------------
-# Classe Bibliotheque
-# -------------------------------
+    @property
+    def date(self):
+        return self._date
+
+    @property
+    def actif(self):
+        return self._actif
+
+    def cloturer(self):
+        if self._actif:
+            self._livre.retourner()
+            self._actif = False
+
 class Bibliotheque:
     def __init__(self):
-        self.livres = []
-        self.utilisateurs = []
-        self.emprunts_actifs = []
+        self._livres = []
+        self._utilisateurs = []
+        self._emprunts_actifs = []
+
+    @property
+    def livres(self):
+        return self._livres.copy()
+
+    @property
+    def utilisateurs(self):
+        return self._utilisateurs.copy()
+
+    @property
+    def emprunts_actifs(self):
+        return self._emprunts_actifs.copy()
 
     def ajouter_livre(self, livre):
-        self.livres.append(livre)
-
-    def supprimer_livre(self, livre):
-        self.livres.remove(livre)
+        self._livres.append(livre)
 
     def inscrire_utilisateur(self, utilisateur):
-        self.utilisateurs.append(utilisateur)
+        self._utilisateurs.append(utilisateur)
 
     def emprunter_livre(self, utilisateur, livre):
         if utilisateur.emprunter_livre(livre):
             emprunt = Emprunt(utilisateur, livre)
-            self.emprunts_actifs.append(emprunt)
+            self._emprunts_actifs.append(emprunt)
             return emprunt
         return None
 
     def retourner_livre(self, emprunt):
-        if emprunt in self.emprunts_actifs:
-            emprunt.clore_emprunt()
-            self.emprunts_actifs.remove(emprunt)
+        if emprunt in self._emprunts_actifs:
+            emprunt.cloturer()
+            self._emprunts_actifs.remove(emprunt)
 
     def afficher_etat(self):
-        print("Livres dans la Bibliothèque:")
-        for livre in self.livres:
+        print("📚 Livres :")
+        for livre in self._livres:
             print(livre)
-        print("\nEmprunts actifs:")
-        for emprunt in self.emprunts_actifs:
+        print("\n📄 Emprunts actifs :")
+        for emprunt in self._emprunts_actifs:
             print(f"{emprunt.livre.titre} emprunté par {emprunt.utilisateur.nom}")
 
-
-# -------------------------------
-# Exemple d'utilisation complet
-# -------------------------------
 if __name__ == "__main__":
     bibliotheque = Bibliotheque()
 
-    # Livres scientifiques
     livre1 = Livre("Une brève histoire de presque tout", "Bill Bryson")
     livre2 = Livre("Le Gène égoïste", "Richard Dawkins")
     livre3 = Livre("Cosmos", "Carl Sagan")
@@ -134,21 +140,16 @@ if __name__ == "__main__":
     for livre in [livre1, livre2, livre3, livre4]:
         bibliotheque.ajouter_livre(livre)
 
-    # Utilisateurs
-    mouna = Utilisateur("mouna")
-    wissam = Utilisateur("wissam")
+    mouna = Utilisateur("Mouna")
+    wissam = Utilisateur("Wissam")
     bibliotheque.inscrire_utilisateur(mouna)
     bibliotheque.inscrire_utilisateur(wissam)
 
-    # Emprunts
     emprunt1 = bibliotheque.emprunter_livre(wissam, livre1)
     emprunt2 = bibliotheque.emprunter_livre(mouna, livre3)
 
-    # Affichage initial
     bibliotheque.afficher_etat()
 
-    # Retour d'un livre
     bibliotheque.retourner_livre(emprunt1)
     print("\nAprès retour d'un livre :")
     bibliotheque.afficher_etat()
-    

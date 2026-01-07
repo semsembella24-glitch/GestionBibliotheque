@@ -1,7 +1,6 @@
 # src/livre.py
-
 class Livre:
-    def __init__(self, titre: str, auteur: str):
+    def __init__(self, titre, auteur):
         self._titre = titre
         self._auteur = auteur
         self._disponible = True
@@ -29,4 +28,4 @@ class Livre:
 
     def __str__(self):
         etat = "Disponible" if self._disponible else "Emprunté"
-        return f"{self._titre} par {self._auteur} - {etat}"
+        return f"{self._titre} par {self._auteur} - {etat}
