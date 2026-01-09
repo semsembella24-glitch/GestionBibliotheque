@@ -1,69 +1,61 @@
 @startuml
-
-' Diagramme UML pour la gestion d'une bibliothèque
-
-
-' Classe Livre
-class Livre {
-    - _titre : str
-    - _auteur : str
-    - _disponible : bool
-    + __init__(titre:str, auteur:str)
-    + titre() : str
-    + auteur() : str
-    + disponible() : bool
-    + emprunter() : bool
-    + retourner()
-    + __str__() : str
+' Classes
+class Book {
+    - title: str
+    - author: str
+    - available: bool
+    + borrow(): bool
+    + return_book(): void
+    + __str__(): str
 }
 
-' Classe Utilisateur
-class Utilisateur {
-    - _nom : str
-    - _livres_empruntes : List<Livre>
-    + __init__(nom:str)
-    + nom() : str
-    + livres_empruntes() : List<Livre>
-    + emprunter_livre(livre:Livre) : bool
-    + retourner_livre(livre:Livre) : bool
+class User {
+    - name: str
+    - borrowed_books: List[Book]
+    + borrow_book(book: Book): bool
+    + return_book(book: Book): bool
+    + borrowed_books(): List[Book]
+    + name(): str
 }
 
-' Classe Emprunt (Loan)
-class Emprunt {
-    - utilisateur : Utilisateur
-    - livre : Livre
-    - date_emprunt : datetime
-    - actif : bool
-    + __init__(utilisateur:Utilisateur, livre:Livre)
-    + clore_emprunt()
+class Loan {
+    - user: User
+    - book: Book
+    - date: datetime
+    - active: bool
+    + close(): void
+    + user(): User
+    + book(): Book
+    + date(): datetime
+    + active(): bool
 }
 
-' Classe Bibliothèque (Library)
-class Bibliotheque {
-    - livres : List<Livre>
-    - utilisateurs : List<Utilisateur>
-    - emprunts_actifs : List<Emprunt>
-    + __init__()
-    + ajouter_livre(livre:Livre)
-    + supprimer_livre(livre:Livre)
-    + inscrire_utilisateur(utilisateur:Utilisateur)
-    + emprunter_livre(utilisateur:Utilisateur, livre:Livre) : Emprunt
-    + retourner_livre(emprunt:Emprunt)
-    + afficher_etat()
+class Library {
+    - books: List[Book]
+    - users: List[User]
+    - active_loans: List[Loan]
+    + add_book(book: Book): void
+    + register_user(user: User): void
+    + borrow_book(user: User, book: Book): Loan
+    + return_book(loan: Loan): void
+    + display_status(): void
+    + books(): List[Book]
+    + users(): List[User]
+    + active_loans(): List[Loan]
 }
 
+' Relationships
+Library "1" o-- "*" Book : contains
+Library "1" o-- "*" User : registers
+Library "1" o-- "*" Loan : manages
 
-' Relations
+User "1" --> "*" Book : borrows
+Loan "1" --> "1" User : linked
+Loan "1" --> "1" Book : linked
 
-' Un Emprunt relie exactement un Livre et un Utilisateur
-Livre "1" <-- "1" Emprunt
-Utilisateur "1" <-- "1" Emprunt
-' Bibliothèque contient plusieurs Livres, Utilisateurs et Emprunts
-Bibliotheque "1" o-- "*" Livre
-Bibliotheque "1" o-- "*" Utilisateur
-Bibliotheque "1" o-- "*" Emprunt
-
-' Optionnel: Utilisateur peut avoir plusieurs livres empruntés
-Utilisateur "1" o-- "*" Livre : emprunts
+' Optional: show multiplicity on Library to Loan
+Library "1" --> "*" Loan : maintains
 
 @enduml
+
+  
