@@ -1,0 +1,156 @@
+from datetime import datetime
+
+class Book:
+    def __init__(self, title, author):
+        self._title = title
+        self._author = author
+        self._available = True
+
+    @property
+    def title(self):
+        return self._title
+
+    @property
+    def author(self):
+        return self._author
+
+    @property
+    def available(self):
+        return self._available
+
+    def borrow(self):
+        if self._available:
+            self._available = False
+            return True
+        return False
+
+    def return_book(self):
+        self._available = True
+
+    def __str__(self):
+        status = "Available" if self._available else "Borrowed"
+        return f"{self._title} by {self._author} - {status}"
+
+class User:
+    def __init__(self, name):
+        self._name = name
+        self._borrowed_books = []
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def borrowed_books(self):
+        return self._borrowed_books.copy()
+
+    def borrow_book(self, book):
+        if book.borrow():
+            self._borrowed_books.append(book)
+            return True
+        return False
+
+    def return_book(self, book):
+        if book in self._borrowed_books:
+            book.return_book()
+            self._borrowed_books.remove(book)
+            return True
+        return False
+
+class Loan:
+    def __init__(self, user, book):
+        self._user = user
+        self._book = book
+        self._date = datetime.now()
+        self._active = True
+
+    @property
+    def user(self):
+        return self._user
+
+    @property
+    def book(self):
+        return self._book
+
+    @property
+    def date(self):
+        return self._date
+
+    @property
+    def active(self):
+        return self._active
+
+    def close(self):
+        if self._active:
+            self._book.return_book()
+            self._active = False
+
+class Library:
+    def __init__(self):
+        self._books = []
+        self._users = []
+        self._active_loans = []
+
+    @property
+    def books(self):
+        return self._books.copy()
+
+    @property
+    def users(self):
+        return self._users.copy()
+
+    @property
+    def active_loans(self):
+        return self._active_loans.copy()
+
+    def add_book(self, book):
+        self._books.append(book)
+
+    def register_user(self, user):
+        self._users.append(user)
+
+    def borrow_book(self, user, book):
+        if user.borrow_book(book):
+            loan = Loan(user, book)
+            self._active_loans.append(loan)
+            return loan
+        return None
+
+    def return_book(self, loan):
+        if loan in self._active_loans:
+            loan.close()
+            self._active_loans.remove(loan)
+
+    def display_status(self):
+        print("📚 Books:")
+        for book in self._books:
+            print(book)
+        print("\n📄 Active loans:")
+        for loan in self._active_loans:
+            print(f"{loan.book.title} borrowed by {loan.user.name}")
+
+if __name__ == "__main__":
+    library = Library()
+
+    book1 = Book("A Short History of Nearly Everything", "Bill Bryson")
+    book2 = Book("The Selfish Gene", "Richard Dawkins")
+    book3 = Book("Cosmos", "Carl Sagan")
+    book4 = Book("The Disappearing Spoon", "Sam Kean")
+
+    for book in [book1, book2, book3, book4]:
+        library.add_book(book)
+
+    mouna = User("Mouna")
+    wissam = User("Wissam")
+    library.register_user(mouna)
+    library.register_user(wissam)
+
+    loan1 = library.borrow_book(wissam, book1)
+    loan2 = library.borrow_book(mouna, book3)
+
+    library.display_status()
+
+    library.return_book(loan1)
+    print("\nAfter returning a book:")
+    library.display_status()
+
