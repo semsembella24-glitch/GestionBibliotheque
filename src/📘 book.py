@@ -1,5 +1,5 @@
 class Book:
-    def __init__(self, title: str, author: str):
+    def __init__(self, title, author):
         self._title = title
         self._author = author
         self._available = True
@@ -17,7 +17,14 @@ class Book:
         return self._available
 
     def borrow(self):
-        self._available = False
+        if self._available:
+            self._available = False
+            return True
+        return False
 
     def return_book(self):
         self._available = True
+
+    def __str__(self):
+        status = "Available" if self._available else "Borrowed"
+        return f"{self._title} by {self._author} - {status}"
