@@ -55,7 +55,4 @@ Loan "1" --> "1" Book : linked
 
 ' Optional: show multiplicity on Library to Loan
 Library "1" --> "*" Loan : maintains
-
 @enduml
-
-  
