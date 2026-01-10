@@ -2,14 +2,14 @@ mkdir git_bibliotheque
 cd git_bibliotheque
 mkdir -p src
 mkdir -p uml
-touch src/bibliotheque.py
-touch src/emprunt.py
-touch src/livre.py
+touch src/library.py
+touch src/loan.py
+touch src/book.py
 touch src/main.py
-touch src/"tt le code"
-touch src/utilisateur.py
+touch src/"the hole code"
+touch src/user.py
 touch README.md
-touch uml/"Justification du diagramme de classes"
+touch uml/"Justification of diagramme de classes"
 touch uml/"plant uml"
 touch uml/uml.PNG
 touch git_commands.txt
