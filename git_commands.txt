@@ -1,26 +1,27 @@
-mkdir git_bibliotheque
-cd git_bibliotheque
+mkdir GESTIONBIBLIOTHEQUE
+cd GESTIONBIBLIOTHEQUE
 mkdir -p src
 mkdir -p uml
-touch src/library.py
-touch src/loan.py
-touch src/book.py
 touch src/main.py
-touch src/"the hole code"
+touch src/library.py
 touch src/user.py
-touch README.md
-touch uml/"Justification of diagramme de classes"
+touch src/book.py
+touch src/loan.py
+touch src/"the hole code.py"
+touch uml/"Justification of the diagramme de classes"
 touch uml/"plant uml"
-touch uml/uml.PNG
+touch uml/"UML Diagram.png"
+touch README.md
 touch git_commands.txt
 git init
 git config --global user.name "semsembella24"
 git config --global user.email "semsembella24@gmail.com"
 git add .
-git commit -m "Initial commit: structure complète du projet"
+git commit -m "Initial commit: complete project structure"
 git remote add origin https://github.com/semsembella24-glitch/GestionBibliotheque.git
 git branch -M main
 git push -u origin main
 git status
 pwd
 ls -R
+
