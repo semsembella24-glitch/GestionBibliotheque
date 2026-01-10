@@ -1,36 +1,34 @@
-6. Justification du diagramme de classes
-1. Rôle de chaque classe
+1. Role of Each Class
 
-livre(book)
-La classe livre représente les ressources consultables de la bibliothèque numérique.
-Elle regroupe les caractéristiques principales d’un livre (titre, auteur, état de disponibilité) et permet d’identifier les ouvrages pouvant être empruntés.
+Book
+The Book class represents the resources available in the digital library.
+It contains the main characteristics of a book (title, author, availability) and allows the system to track which books can be borrowed.
 
-utilisateur(user)
-La classe utilisateur modélise les utilisateurs (adhérents) de la bibliothèque.
-Elle permet de gérer l’inscription des utilisateurs et leurs interactions avec le système, notamment les opérations d’emprunt de livres.
+User
+The User class models the members of the library.
+It manages user registration and their interactions with the system, particularly borrowing and returning books.
 
-emprunt(loan)
-La classe emprunt représente la relation métier entre un utilisateur et un livre.
-Elle contient les informations relatives à une opération d’emprunt, telles que la date d’emprunt et l’état de l’emprunt (actif ou clôturé).
-La création de cette classe permet de séparer la logique d’emprunt des classes livre et utilisateur, conformément au principe de responsabilité unique.
+Loan
+The Loan class represents the business relationship between a user and a book.
+It stores information about a borrowing operation, such as the date of the loan and its status (active or closed).
+This separation ensures that borrowing logic is not mixed with the Book or User classes, following the Single Responsibility Principle.
 
-bibiotheque(library)
-La classe bibiotheque est la classe centrale du système.
-Elle orchestre l’ensemble des règles métier en assurant la gestion des livres, l’inscription des utilisateurs, le suivi des emprunts et le retour des livres, ainsi que l’affichage de l’état global du système.
+Library
+The Library class is the central class of the system.
+It orchestrates all business rules, including book management, user registration, loan tracking, book returns, and displaying the overall state of the library.
 
-2. Justification des relations entre les classes
+2. Justification of the Relationships Between Classes
 
-La relation entre emprunt et livre est une relation de cardinalité (1..1), car chaque emprunt concerne un seul livre.
+The relationship between Loan and Book is 1-to-1, because each loan corresponds to a single book.
 
-La relation entre emprunt et utilisateur est également de cardinalité (1..1), puisque chaque emprunt est effectué par un seul utilisateur.
+The relationship between Loan and User is also 1-to-1, as each loan is made by a single user.
 
-La relation entre bibiotheque et les classes livre, utilisateur et emprunt est une relation d’agrégation, car la bibliothèque contient plusieurs livres, utilisateurs et emprunts, tout en conservant l’indépendance de ces entités.
+The relationship between Library and the classes Book, User, and Loan is an aggregation, because the library contains multiple books, users, and loans while maintaining the independence of these entities.
 
-La relation optionnelle entre utilisateur et livre indique qu’un utilisateur peut emprunter plusieurs livres au cours du temps, cette relation étant concrètement gérée par la classe emprunt.
+The optional relationship between User and Book indicates that a user may borrow multiple books over time; this is effectively managed through the Loan class.
 
-- Cohérence entre la conception UML et l’implémentation
-Le diagramme de classes a été conçu de manière à être strictement cohérent avec l’implémentation en Python.
-Chaque classe UML correspond à une classe Python définie dans un fichier distinct, et les relations entre les classes sont fidèlement représentées dans le code à travers les attributs et les objets manipulés.
-Cette cohérence garantit une meilleure lisibilité, maintenabilité et évolutivité du système.
-Ce diagramme de classes permet une modélisation claire et structurée du système de bibliothèque numérique.
-Il respecte les principes de la programmation orientée objet, assure une séparation efficace des responsabilités et facilite l’évolution future du système.
+3. Coherence Between UML Design and Implementation
+
+The class diagram is fully consistent with the Python implementation.
+Each UML class corresponds directly to a Python class, and all relationships are represented in the code through attributes and object references.
+This alignment ensures the system is clear, maintainable, and extensible, while respecting object-oriented principles and proper separation of responsibilities.
